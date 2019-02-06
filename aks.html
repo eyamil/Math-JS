@@ -1,0 +1,44 @@
+<html>
+    <script>
+        function gcd(x,y) {
+            if (x == 0) {
+                return(y);
+            }
+            else if (y == 0) {
+                return(x);
+            }
+            return gcd(y, x % y);
+        }
+
+        function modpow(base, exponent, divisor) {
+            if (exponent == 1) {
+                return(base % divisor);
+            }
+            else if (exponent % 2 == 0) {
+                let root = modpow(base, exponent / 2, divisor);
+                return(root*root % divisor);
+            }
+            else {
+                let root = modpow(base, (exponent - 1) / 2, divisor);
+                return(root * root * base % divisor);
+            }
+        }
+
+        function totient(base) {
+            let numUnits = 0;
+            for (let i = 1; i < base; i++) {
+                if (gcd(i, base) == 1) {
+                    numUnits++;
+                }
+            }
+            return(numUnits);
+        }
+
+        function modinv(x, modulus) {
+            if (gcd(x, modulus) != 1) {
+                return(0);
+            }
+            return(modpow(x, totient(modulus) - 1, modulus));
+        }
+    </script>
+</html>

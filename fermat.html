@@ -1,0 +1,27 @@
+<html>
+    <script>
+        function modpow(base, exponent, divisor) {
+            if (exponent == 1) {
+                return(base % divisor);
+            }
+            else if (exponent % 2 == 0) {
+                let root = modpow(base, exponent / 2, divisor);
+                return(root*root % divisor);
+            }
+            else {
+                let root = modpow(base, (exponent - 1) / 2, divisor);
+                return(root * root * base % divisor);
+            }
+        }
+
+        function computeWitnesses(n) {
+            let witnessCount = 0;
+            for(let i = 1; i < n; i++) {
+                if (modpow(i,n-1,n) != 1) {
+                    witnessCount++;
+                }
+            }
+            return(witnessCount);
+        }
+    </script>
+</html>
